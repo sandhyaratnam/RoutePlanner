@@ -248,20 +248,21 @@ def solution_quality_stat(dict):
 def time_constraints_stat(dict):
     return
 def main():
-    dict = read_csv("../country-capitals.csv")
+    dict = read_csv("country-capitals.csv")
     #size = [3,5,8,10]
     #performance_stat(dict)
-    solution_quality_stat(dict)
-    # distances_database = construct_distance(dict, ["United Kingdom", "United States", "Vietnam", "Thailand","Japan"])
-    # ans, time = best_first_greedy_search("Vietnam", distances_database,35)
-    # ans2, time2 = breadth_first_search("Vietnam", distances_database,35)
-    # print(ans)
-    # print(time)
-    # print(ans2)
-    # print(time2)
-#    actual_time = 0;
-#    for i in range(len(ans) - 1):
-#        actual_time += distances_database[ans[i]][ans[i+1]] / SPEED
-#    print(actual_time)
+    #solution_quality_stat(dict)
+    distances_database = construct_distance(dict, ["United Kingdom", "United States", "Vietnam", "Thailand","Japan"])
+    ans, time = best_first_greedy_search("Vietnam", distances_database,35)
+    ans2, time2 = breadth_first_search("Vietnam", distances_database,35)
+    print(ans)
+    print(time)
+    print(ans2)
+    print(time2)
+    actual_time = 0;
+    for i in range(len(ans) - 1):
+        actual_time += distances_database[ans[i]][ans[i+1]] / SPEED
+    print("Best time:")
+    print(actual_time)
 if __name__ == "__main__":
     main()
