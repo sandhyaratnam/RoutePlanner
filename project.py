@@ -1,4 +1,4 @@
-# written by Thu Tran and Sandhya Ratnam
+# Created by by Thu Tran and Sandhya Ratnam
 from math import *
 import random
 import time
