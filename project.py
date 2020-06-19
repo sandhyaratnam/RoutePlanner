@@ -2,6 +2,7 @@
 from math import *
 import random
 import time
+import pandas as pd
 
 # global variable:
 SPEED = 900.0 # km/h according to https://en.wikipedia.org/wiki/Cruise_(aeronautics)
@@ -249,20 +250,35 @@ def time_constraints_stat(dict):
     return
 def main():
     dict = read_csv("country-capitals.csv")
-    #size = [3,5,8,10]
-    #performance_stat(dict)
-    #solution_quality_stat(dict)
-    distances_database = construct_distance(dict, ["United Kingdom", "United States", "Vietnam", "Thailand","Japan"])
-    ans, time = best_first_greedy_search("Vietnam", distances_database,35)
-    ans2, time2 = breadth_first_search("Vietnam", distances_database,35)
-    print(ans)
-    print(time)
-    print(ans2)
-    print(time2)
-    actual_time = 0;
-    for i in range(len(ans) - 1):
-        actual_time += distances_database[ans[i]][ans[i+1]] / SPEED
-    print("Best time:")
-    print(actual_time)
+    country1 = input("Enter home country: ")
+    duration = int(input("Enter duration limit (hours): "))
+    view_list = input("To view a list of countries, input \"yes\". Otherwise, input \"no\". ")
+
+    # view countries to choose from
+    if (view_list=="yes"):
+        df = pd.read_csv("country-capitals.csv", usecols=['CountryName'])    
+        names = df.CountryName.tolist()
+        print(names)
+
+    country_rest = input("Enter countries to visit in the format 'country 1, country 2, country 3' (Note the names of the countries must be capitalized): ")
+    countries_lst=country_rest.split(', ')
+    countries_lst.insert(0, country1)
+    distances_database = construct_distance(dict, countries_lst)
+    ans, time = best_first_greedy_search(country1, distances_database,duration)
+    ans2, time2 = breadth_first_search(country1, distances_database,duration)
+
+    print("\n")
+    print("Greedy Best First Search Result:")
+    print("Route:" , ans)
+    print("Time:",  time)
+    print("\n")
+    print("Breadth First Search Result:")
+    print("Route:" , ans2)
+    print("Time:" , time2)
+    print("\n")
+    print("Note: if inputted countries are not included in route, then the duration inputted is too short.")
+    print("\n")
+
+
 if __name__ == "__main__":
     main()
